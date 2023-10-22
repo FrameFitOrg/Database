@@ -1,12 +1,32 @@
-from tkinter import
-from PIL import Imagetk,Image
-import sqlite3
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
 
-# root = Tk()
-# root.title('Aplikasi Admin')
-# root.iconbitmap()
-# root.geometry("400x400")
+app = Flask("FrameAPI")
+api = Api(app)
 
-conn = sqlite3.connect('framefit.db')
-c = conn.cursor()
+parser = reqparse.RequestParser()
+parser.add_argument('title', required=True)
 
+frames = {
+    'frame1': {'title': 'Kacamata Bulat'},
+    'frame2': {'title': 'Kacamata Lonjong'}
+}
+
+class Frame(Resource):
+
+    def get(self, frame_id):
+        if frame_id == "all":
+            return frames
+        return frames[frame_id]
+    
+    def put(self, frame_id):
+        args = parse.parse_args()
+        new_frame = 
+        
+        
+    
+
+api.add_resource(Frame, '/frames/<frame_id>')
+
+if __name__ == '__main__':
+    app.run()
